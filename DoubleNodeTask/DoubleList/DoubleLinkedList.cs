@@ -22,7 +22,8 @@ namespace DoubleList
             var newNode = new DoubleNode<T>(data);
             if (_head == null)
             {
-                _head = _tail = newNode;
+                _head = newNode;
+                _tail = newNode;
                 return;
             }
 
@@ -82,16 +83,31 @@ namespace DoubleList
         {
             var items = new List<T>();
             var current = _head;
+
             while (current != null)
             {
                 items.Add(current.Data);
                 current = current.Next;
             }
 
-            items.Sort();
-            items.Reverse();
+            for (int i = 0; i < items.Count - 1; i++)
+            {
+                for (int j = 0; j < items.Count - i - 1; j++)
+                {
+                    if (items[j].CompareTo(items[j + 1]) < 0)
+                    {
+                        
+                        var temp = items[j];
+                        items[j] = items[j + 1];
+                        items[j + 1] = temp;
+                    }
+                }
+            }
 
-            _head = _tail = null;
+            
+            _head = null;
+            _tail = null;
+
             foreach (var item in items)
             {
                 InsertAtEnd(item);
@@ -136,14 +152,14 @@ namespace DoubleList
                     maxFreq = pair.Value;
             }
 
-            var modas = new List<T>();
+            var modes = new List<T>();
             foreach (var pair in frequency)
             {
                 if (pair.Value == maxFreq)
-                    modas.Add(pair.Key);
+                    modes.Add(pair.Key);
             }
 
-            return modas;
+            return modes;
         }
 
         public void ShowFrequencyGraph()

@@ -6,90 +6,91 @@ class Program
     static void Main()
     {
         var list = new DoublyLinkedList<string>();
-        int option;
+        string opc = "0";
 
         do
         {
-            Console.WriteLine("\n--- MENU ---");
-            Console.WriteLine("1. Adicionar");
-            Console.WriteLine("2. Mostrar hacia adelante");
-            Console.WriteLine("3. Mostrar hacia atras");
-            Console.WriteLine("4. Ordenar descendentemente");
-            Console.WriteLine("5. Mostrar la(s) moda(s)");
-            Console.WriteLine("6. Mostrar grafico");
-            Console.WriteLine("7. Existe");
-            Console.WriteLine("8. Eliminar una ocurrencia");
-            Console.WriteLine("9. Eliminar todas las ocurrencias");
-            Console.WriteLine("0. Salir");
-            Console.Write("Seleccione una opcion: ");
+            opc = Menu();
 
-            if (!int.TryParse(Console.ReadLine(), out option))
+            switch (opc)
             {
-                Console.WriteLine("Opcion invalida. Intente de nuevo.");
-                continue;
-            }
-
-            switch (option)
-            {
-                case 1:
-                    Console.Write("Ingrese un valor: ");
+                case "1":
+                    Console.Write("Enter a value: ");
                     var input = Console.ReadLine();
-                    list.InsertSorted(input!);
+                    if (input != null)
+                        list.InsertSorted(input);
                     break;
 
-                case 2:
-                    Console.WriteLine("Lista hacia adelante:");
+                case "2":
+                    Console.WriteLine("List forward:");
                     Console.WriteLine(list.GetForward());
                     break;
 
-                case 3:
-                    Console.WriteLine("Lista hacia atras:");
+                case "3":
+                    Console.WriteLine("List backward:");
                     Console.WriteLine(list.GetBackward());
                     break;
 
-                case 4:
+                case "4":
                     list.SortDescending();
-                    Console.WriteLine("Lista ordenada descendentemente.");
+                    Console.WriteLine("List sorted in descending order.");
                     break;
 
-                case 5:
+                case "5":
                     var modes = list.GetModes();
-                    Console.WriteLine("Moda(s): " + string.Join(", ", modes));
+                    Console.WriteLine("Mode(s): " + string.Join(", ", modes));
                     break;
 
-                case 6:
-                    Console.WriteLine("Grafico de ocurrencias:");
+                case "6":
+                    Console.WriteLine("Frequency graph:");
                     list.ShowFrequencyGraph();
                     break;
 
-                case 7:
-                    Console.Write("Ingrese el valor a buscar: ");
+                case "7":
+                    Console.Write("Enter the value to search: ");
                     var search = Console.ReadLine();
-                    Console.WriteLine(list.Contains(search!) ? "Existe en la lista." : "No existe.");
+                    Console.WriteLine(list.Contains(search!) ? "Exists in the list." : "Does not exist.");
                     break;
 
-                case 8:
-                    Console.Write("Ingrese el valor a eliminar (una vez): ");
-                    var toDeleteOnce = Console.ReadLine();
-                    list.RemoveFirstOccurrence(toDeleteOnce!);
-                    Console.WriteLine("Eliminado (si existia).");
+                case "8":
+                    Console.Write("Enter the value to remove (once): ");
+                    var remove = Console.ReadLine();
+                    list.RemoveFirstOccurrence(remove!);
+                    Console.WriteLine("Removed (if existed).");
                     break;
 
-                case 9:
-                    Console.Write("Ingrese el valor a eliminar (todas las veces): ");
-                    var toDeleteAll = Console.ReadLine();
-                    list.RemoveAllOccurrences(toDeleteAll!);
-                    Console.WriteLine("Todas las ocurrencias eliminadas.");
+                case "9":
+                    Console.Write("Enter the value to remove (all occurrences): ");
+                    var removeAll = Console.ReadLine();
+                    list.RemoveAllOccurrences(removeAll!);
+                    Console.WriteLine("All occurrences removed.");
                     break;
 
-                case 0:
-                    Console.WriteLine("Saliendo...");
+                case "0":
+                    Console.WriteLine("Exiting...");
                     break;
 
                 default:
-                    Console.WriteLine("Opcion invalida.");
+                    Console.WriteLine("Invalid option. Please try again.");
                     break;
             }
-        } while (option != 0);
+        }
+        while (opc != "0");
+    }
+
+    static string Menu()
+    {
+        Console.WriteLine("1. Add");
+        Console.WriteLine("2. Show forward");
+        Console.WriteLine("3. Show backward");
+        Console.WriteLine("4. Sort descending");
+        Console.WriteLine("5. Show mode(s)");
+        Console.WriteLine("6. Show frequency graph");
+        Console.WriteLine("7. Contains");
+        Console.WriteLine("8. Remove one occurrence");
+        Console.WriteLine("9. Remove all occurrences");
+        Console.WriteLine("0. Exit");
+        Console.Write("Choose an option: ");
+        return Console.ReadLine() ?? "0";
     }
 }
