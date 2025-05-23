@@ -17,7 +17,7 @@ namespace DoubleList
             _tail = null;
         }
 
-        public void InsertSorted(T data)
+        public void Add(T data)
         {
             var newNode = new DoubleNode<T>(data);
             if (_head == null)
@@ -104,7 +104,6 @@ namespace DoubleList
                 }
             }
 
-            
             _head = null;
             _tail = null;
 

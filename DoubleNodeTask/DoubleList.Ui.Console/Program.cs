@@ -15,10 +15,10 @@ class Program
             switch (opc)
             {
                 case "1":
-                    Console.Write("Enter a value: ");
+                    Console.Write("Enter an element: ");
                     var input = Console.ReadLine();
                     if (input != null)
-                        list.InsertSorted(input);
+                        list.Add(input);
                     break;
 
                 case "2":
@@ -49,25 +49,49 @@ class Program
                 case "7":
                     Console.Write("Enter the value to search: ");
                     var search = Console.ReadLine();
-                    Console.WriteLine(list.Contains(search!) ? "Exists in the list." : "Does not exist.");
+
+                    if (list.Contains(search!))
+                    {
+                        Console.WriteLine("Exists in the list.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Does not exist.");
+                    }
                     break;
 
                 case "8":
-                    Console.Write("Enter the value to remove (once): ");
+
+                    Console.Write("Enter the value to remove: ");
                     var remove = Console.ReadLine();
-                    list.RemoveFirstOccurrence(remove!);
-                    Console.WriteLine("Removed (if existed).");
+                    if (list.Contains(remove!))
+                    {
+                        list.RemoveFirstOccurrence(remove!);
+                        Console.WriteLine("Removed.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Value not found. It can not be removed");
+                    }
                     break;
+
 
                 case "9":
                     Console.Write("Enter the value to remove (all occurrences): ");
                     var removeAll = Console.ReadLine();
-                    list.RemoveAllOccurrences(removeAll!);
-                    Console.WriteLine("All occurrences removed.");
+                    if (list.Contains(removeAll!))
+                    {
+                        list.RemoveAllOccurrences(removeAll!);
+                        Console.WriteLine("All occurrences removed.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Value not found. They can not be removed.");
+                    }
                     break;
 
+
                 case "0":
-                    Console.WriteLine("Exiting...");
                     break;
 
                 default:
